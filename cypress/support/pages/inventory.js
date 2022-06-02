@@ -1,8 +1,10 @@
 import InventoryHeader from "../components/inventoryHeader";
+import InventoryContainer from "../components/inventoryContainer";
 
 class Inventory {
   constructor() {
     this.header = new InventoryHeader();
+    this.container = new InventoryContainer();
   }
 
   visit() {
