@@ -1,16 +1,16 @@
 /// <reference types="Cypress" />
 
-import Login from "../support/pages/login";
+import Inventory from "../support/pages/inventory";
 
-let loginPage = new Login();
+let inventoryPage = new Inventory();
 
 describe("Inventory", () => {
-  it("Login to page", () => {
-    loginPage.visit();
-    loginPage.login();
+  beforeEach(() => {
+    inventoryPage.visit().login();
+  });
 
-    cy.get(".title").then($title => {
-      console.log($title.text());
-    });
+  it("Should be the inventory page", () => {
+    inventoryPage.url().should("include", "/inventory.html");
+    inventoryPage.getTitle().should("contain", "Products");
   });
 });
