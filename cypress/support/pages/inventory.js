@@ -1,4 +1,10 @@
+import InventoryHeader from "../components/inventoryHeader";
+
 class Inventory {
+  constructor() {
+    this.header = new InventoryHeader();
+  }
+
   visit() {
     cy.visit("https://www.saucedemo.com/");
     return this;
@@ -12,10 +18,6 @@ class Inventory {
 
   url() {
     return cy.url();
-  }
-
-  getTitle() {
-    return cy.get(".title");
   }
 
 }

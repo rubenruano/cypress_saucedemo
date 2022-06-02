@@ -11,6 +11,6 @@ describe("Inventory", () => {
 
   it("Should be the inventory page", () => {
     inventoryPage.url().should("include", "/inventory.html");
-    inventoryPage.getTitle().should("contain", "Products");
+    inventoryPage.header.getTitle().should("contain", "Products");
   });
 });
