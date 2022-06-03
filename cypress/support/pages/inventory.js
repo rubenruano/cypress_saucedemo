@@ -1,5 +1,5 @@
-import InventoryHeader from "../components/inventoryHeader";
-import InventoryContainer from "../components/inventoryContainer";
+import InventoryHeader from "../components/inventory/inventoryHeader";
+import InventoryContainer from "../components/inventory/inventoryContainer";
 
 class Inventory {
   constructor() {
