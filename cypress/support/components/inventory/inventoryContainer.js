@@ -14,10 +14,19 @@ class InventoryContainer {
   getProductPrice(productIndex) {
     return this.getProduct(productIndex)
       .find(".inventory_item_price")
-      .then(($product1) => {
-        const priceText = $product1.text();
+      .then(($product) => {
+        const priceText = $product.text();
         const price = parseFloat(priceText.replace("$", ""));
         return price;
+      });
+  }
+
+  getProductName(productIndex) {
+    return this.getProduct(productIndex)
+      .find(".inventory_item_name")
+      .then(($product) => {
+        const name = $product.text();
+        return name;
       });
   }
 

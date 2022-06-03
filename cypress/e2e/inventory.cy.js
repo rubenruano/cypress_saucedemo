@@ -47,4 +47,30 @@ describe("Inventory", () => {
       });
     });
   });
+
+  it("Should sort by product name A-Z", () => {
+    inventoryPage.header.setSortOrderAscendingName();
+
+    inventoryPage.container.getProductName(1).then(($name1) => {
+      inventoryPage.container.getProductName(2).then(($name2) => {
+        expect(
+          $name1.localeCompare($name2),
+          "failed to sort by ascending product name"
+        ).eq(-1);
+      });
+    });
+  });
+
+  it("Should sort by product name Z-A", () => {
+    inventoryPage.header.setSortOrderDescendingName();
+
+    inventoryPage.container.getProductName(1).then(($name1) => {
+      inventoryPage.container.getProductName(2).then(($name2) => {
+        expect(
+          $name1.localeCompare($name2),
+          "failed to sort by ascending product name"
+        ).eq(1);
+      });
+    });
+  });
 });
