@@ -1,10 +1,12 @@
 import InventoryHeader from "../components/inventory/inventoryHeader";
 import InventoryContainer from "../components/inventory/inventoryContainer";
 import InventoryItem from "./inventoryItem";
+import MainHeader from "../components/MainHeader";
 
 class Inventory {
   constructor() {
-    this.header = new InventoryHeader();
+    this.MainHeader = new MainHeader();
+    this.inventoryHeader = new InventoryHeader();
     this.container = new InventoryContainer();
   }
 

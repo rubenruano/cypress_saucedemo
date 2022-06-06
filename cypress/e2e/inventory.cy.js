@@ -1,8 +1,8 @@
 /// <reference types="Cypress" />
 
-import Inventory from "../support/pages/inventory";
+import InventoryPage from "../support/pages/inventory";
 
-let inventoryPage = new Inventory();
+let inventoryPage = new InventoryPage();
 
 // test page https://www.saucedemo.com/inventory.html
 describe("Inventory", () => {
@@ -12,7 +12,7 @@ describe("Inventory", () => {
 
   it("Should be the inventory page", () => {
     inventoryPage.url().should("include", "/inventory.html");
-    inventoryPage.header.getTitle().should("contain", "Products");
+    inventoryPage.inventoryHeader.getTitle().should("contain", "Products");
   });
 
   it("Should have at least two product", () => {
@@ -20,8 +20,7 @@ describe("Inventory", () => {
   });
 
   it("Should sort by product name A-Z", () => {
-    inventoryPage.header.setSortOrderAscendingName();
-
+    inventoryPage.inventoryHeader.setSortOrderAscendingName();
     inventoryPage.container.getProductName(1).then(($name1) => {
       inventoryPage.container.getProductName(2).then(($name2) => {
         expect(
@@ -33,8 +32,7 @@ describe("Inventory", () => {
   });
 
   it("Should sort by product name Z-A", () => {
-    inventoryPage.header.setSortOrderDescendingName();
-
+    inventoryPage.inventoryHeader.setSortOrderDescendingName();
     inventoryPage.container.getProductName(1).then(($name1) => {
       inventoryPage.container.getProductName(2).then(($name2) => {
         expect(
@@ -46,8 +44,7 @@ describe("Inventory", () => {
   });
 
   it("Should sort by product price Low to Hight", () => {
-    inventoryPage.header.setSortOrderAscendingPrice();
-
+    inventoryPage.inventoryHeader.setSortOrderAscendingPrice();
     inventoryPage.container.getProductPrice(1).then(($price1) => {
       inventoryPage.container.getProductPrice(2).then(($price2) => {
         expect($price1).to.be.below($price2);
@@ -56,15 +53,24 @@ describe("Inventory", () => {
   });
 
   it("Should sort by product price Hight to Low", () => {
-    inventoryPage.header.setSortOrderDescendingPrice();
-
+    inventoryPage.inventoryHeader.setSortOrderDescendingPrice();
     inventoryPage.container.getProductPrice(1).then(($price1) => {
       inventoryPage.container.getProductPrice(2).then(($price2) => {
         expect($price1).to.be.above($price2);
       });
     });
   });
+
+  it("Should add and remove products", () => { 
+    inventoryPage.container.addProduct(1);
+    inventoryPage.container.addProduct(2);
+    inventoryPage.container.addProduct(3);
+    inventoryPage.container.addProduct(4);
+    inventoryPage.MainHeader.getShoppingCardBadge().should("have.text", 4);
+    inventoryPage.container.removeProduct(1);
+    inventoryPage.container.getProduct(2).then($p => console.log($p))
+    inventoryPage.container.removeProduct(2);
+    inventoryPage.MainHeader.getShoppingCardBadge().should("have.text", 2);
+  });
 });
 
-
-// TODO: Test Add/Remove product to cart

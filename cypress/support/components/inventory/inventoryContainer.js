@@ -30,10 +30,14 @@ class InventoryContainer {
       });
   }
 
-  getProductContainer(productIndex) {
-    return cy
-      .get(CONTAINER_SELECTOR)
-      .find(`.inventory_list > :nth-child(${productIndex})`);
+  addProduct(productIndex) {
+    this.getProduct(productIndex)
+      .find(".btn_primary").click();
+  }
+
+  removeProduct(productIndex) {
+    return this.getProduct(productIndex)
+      .find('.btn_secondary').click();
   }
 
   getNumberProducts() {
