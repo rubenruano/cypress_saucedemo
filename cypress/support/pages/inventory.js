@@ -22,6 +22,12 @@ class Inventory {
     return cy.url();
   }
 
+  goToProductDetails(productIndex) {
+    this.container
+      .getProduct(productIndex)
+      .find(".inventory_item_name")
+      .click();
+  }
 }
 
 export default Inventory;
