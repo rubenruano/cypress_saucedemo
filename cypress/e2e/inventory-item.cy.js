@@ -1,7 +1,6 @@
 /// <reference types="Cypress" />
 
 import Inventory from "../support/pages/inventory";
-import InventoryItem from "../support/pages/inventoryItem";
 
 let inventoryPage = new Inventory();
 
@@ -12,16 +11,13 @@ describe("Inventory Item", () => {
   });
 
   it("Should navigate to product details", () => {
-    inventoryPage.goToProductDetails(1);
-    const inventoryItem = new InventoryItem();
+    const inventoryItem = inventoryPage.goToProductDetails(1);
     inventoryItem.getProductName().should("equal", "Sauce Labs Backpack");
     inventoryItem.getProductPrice().should("equal", "$29.99");
   });
 
   it("Should add and remove item", () => {
-    inventoryPage.goToProductDetails(1);
-
-    const inventoryItem = new InventoryItem();
+    const inventoryItem = inventoryPage.goToProductDetails(1);
     inventoryItem.addToCart();
     inventoryItem.mainHeader.getShoppingCardBadge().should("have.text", "1");
     inventoryItem.removeFromCart();

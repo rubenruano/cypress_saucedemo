@@ -1,5 +1,6 @@
 import InventoryHeader from "../components/inventory/inventoryHeader";
 import InventoryContainer from "../components/inventory/inventoryContainer";
+import InventoryItem from "./inventoryItem";
 
 class Inventory {
   constructor() {
@@ -27,6 +28,8 @@ class Inventory {
       .getProduct(productIndex)
       .find(".inventory_item_name")
       .click();
+
+    return new InventoryItem();
   }
 }
 
