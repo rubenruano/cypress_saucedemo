@@ -7,21 +7,23 @@ let inventoryPage = new Inventory();
 
 // test page https://www.saucedemo.com/inventory-item.html
 describe("Inventory Item", () => {
-  before(() => {
+  beforeEach(() => {
     inventoryPage.visit().login();
   });
 
   it("Should navigate to product details", () => {
-    inventoryPage.container.getProduct(1).as("selectedProduct");
-
     inventoryPage.goToProductDetails(1);
     const inventoryItem = new InventoryItem();
     inventoryItem.getProductName().should("equal", "Sauce Labs Backpack");
     inventoryItem.getProductPrice().should("equal", "$29.99");
-
-    inventoryItem.addToCart();
-    cy.wait(10000);
-    inventoryItem.removeFromCart();
   });
 
+  it("Should add and remove item", () => {
+    inventoryPage.goToProductDetails(1);
+
+    const inventoryItem = new InventoryItem();
+    inventoryItem.addToCart();
+    inventoryItem.mainHeader.getShoppingCardBadge().should("have.text", "1");
+    inventoryItem.removeFromCart();
+  });
 });
