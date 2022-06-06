@@ -15,9 +15,13 @@ describe("Inventory Item", () => {
     inventoryPage.container.getProduct(1).as("selectedProduct");
 
     inventoryPage.goToProductDetails(1);
-
     const inventoryItem = new InventoryItem();
-
     inventoryItem.getProductName().should("equal", "Sauce Labs Backpack");
+    inventoryItem.getProductPrice().should("equal", "$29.99");
+
+    inventoryItem.addToCart();
+    cy.wait(10000);
+    inventoryItem.removeFromCart();
   });
+
 });
