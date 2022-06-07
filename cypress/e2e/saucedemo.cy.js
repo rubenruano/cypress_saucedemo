@@ -4,7 +4,10 @@ import InventoryPage from "../support/pages/inventory";
 
 let inventoryPage = new InventoryPage();
 
-// test page https://www.saucedemo.com/inventory.html
+//
+// Test Inventory
+// https://www.saucedemo.com/inventory.html
+//
 describe("Inventory", () => {
   before(() => {
     inventoryPage.visit().login();
@@ -61,16 +64,58 @@ describe("Inventory", () => {
     });
   });
 
-  it("Should add and remove products", () => { 
+  it("Should add and remove products", () => {
     inventoryPage.container.addProduct(1);
     inventoryPage.container.addProduct(2);
     inventoryPage.container.addProduct(3);
     inventoryPage.container.addProduct(4);
-    inventoryPage.MainHeader.getShoppingCardBadge().should("have.text", 4);
+    inventoryPage.mainHeader.getShoppingCardBadge().should("have.text", 4);
     inventoryPage.container.removeProduct(1);
-    inventoryPage.container.getProduct(2).then($p => console.log($p))
+    inventoryPage.container.getProduct(2).then(($p) => console.log($p));
     inventoryPage.container.removeProduct(2);
-    inventoryPage.MainHeader.getShoppingCardBadge().should("have.text", 2);
+    inventoryPage.mainHeader.getShoppingCardBadge().should("have.text", 2);
   });
 });
 
+//
+// Test Inventory Item
+// https://www.saucedemo.com/inventory-item.html
+//
+describe("Inventory Item", () => {
+  beforeEach(() => {
+    inventoryPage.visit().login();
+  });
+
+  it("Should navigate to product details", () => {
+    const inventoryItem = inventoryPage.goToProductDetails(1);
+    inventoryItem.getProductName().should("equal", "Sauce Labs Backpack");
+    inventoryItem.getProductPrice().should("equal", "$29.99");
+  });
+
+  it("Should add and remove item", () => {
+    const inventoryItem = inventoryPage.goToProductDetails(1);
+    inventoryItem.addToCart();
+    inventoryItem.mainHeader.getShoppingCardBadge().should("have.text", "1");
+    inventoryItem.removeFromCart();
+  });
+});
+
+//
+// Test Cart
+// https://www.saucedemo.com/cart.html
+//
+describe("Inventory Item", () => {
+  beforeEach(() => {
+    inventoryPage.visit().login();
+  });
+
+  it("Should list products added into the cart", () => {
+    inventoryPage.container.addProduct(1);
+    inventoryPage.container.addProduct(2);
+    inventoryPage.container.addProduct(3);
+    inventoryPage.container.addProduct(4);
+
+    const cartPage = inventoryPage.mainHeader.clickShoppingCart();
+    cartPage.getPageTitle().should("equal", "Your Cart");
+  });
+});

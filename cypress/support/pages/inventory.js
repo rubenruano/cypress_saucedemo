@@ -5,7 +5,7 @@ import MainHeader from "../components/MainHeader";
 
 class Inventory {
   constructor() {
-    this.MainHeader = new MainHeader();
+    this.mainHeader = new MainHeader();
     this.inventoryHeader = new InventoryHeader();
     this.container = new InventoryContainer();
   }
