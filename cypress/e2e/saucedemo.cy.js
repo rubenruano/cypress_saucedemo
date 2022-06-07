@@ -140,5 +140,7 @@ describe("Cart", () => {
     });
     const checkoutOverview = checkoutPage.gotToCheckoutOverview();
     checkoutOverview.getTitle().should("equal", "Checkout: Overview");
+    const thankyouPage = checkoutOverview.clickFinish();
+    thankyouPage.getTitle().should("equal", "THANK YOU FOR YOUR ORDER");
   });
 });
