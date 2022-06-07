@@ -11,8 +11,11 @@ class Cart {
 
   clickGoToCheckout() {
     cy.get(`[data-test="checkout"]`).click();
-
     return new Checkout();
+  }
+
+  getItems() {
+    return cy.get(`.cart_item`);
   }
 }
 

@@ -104,12 +104,25 @@ describe("Inventory Item", () => {
 // Test Cart
 // https://www.saucedemo.com/cart.html
 //
-describe("Inventory Item", () => {
+describe("Cart", () => {
   beforeEach(() => {
     inventoryPage.visit().login();
   });
 
-  it("Should list products added into the cart", () => {
+  it("Should add products to the cart", () => {
+    inventoryPage.container.addProduct(1);
+    inventoryPage.container.addProduct(2);
+    inventoryPage.container.addProduct(3);
+    inventoryPage.container.addProduct(4);
+
+    const cartPage = inventoryPage.mainHeader.clickShoppingCart();
+    cartPage.getPageTitle().should("equal", "Your Cart");
+    cartPage.getItems().should("have.length", 4);
+
+    cartPage.clickContinueShopping();
+  });
+
+  it("Should add products to cart and complete checkout", () => {
     inventoryPage.container.addProduct(1);
     inventoryPage.container.addProduct(2);
     inventoryPage.container.addProduct(3);
@@ -125,9 +138,7 @@ describe("Inventory Item", () => {
       lastName: "Doe",
       postalCode: "123456",
     });
-    const checkoutOverview  = checkoutPage.gotToCheckoutOverview();
+    const checkoutOverview = checkoutPage.gotToCheckoutOverview();
     checkoutOverview.getTitle().should("equal", "Checkout: Overview");
   });
 });
-
-
