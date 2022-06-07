@@ -117,5 +117,17 @@ describe("Inventory Item", () => {
 
     const cartPage = inventoryPage.mainHeader.clickShoppingCart();
     cartPage.getPageTitle().should("equal", "Your Cart");
+
+    cy.wait(2000);
+    cartPage.clickContinueShopping();
+
+    cy.wait(2000);
+    const cartPage2 = inventoryPage.mainHeader.clickShoppingCart();
+    const checkoutPage = cartPage2.clickGoToCheckout();
+    checkoutPage.setPersonalInformation({
+      firstName: "John",
+      lastName: "Doe",
+      postalCode: "123456",
+    });
   });
 });
